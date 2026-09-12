@@ -26,6 +26,7 @@ public class File {
     private Long size;
 
     @Column(name = "file_type", nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
     private FileType fileType;
 
     @Column(name = "user_id", nullable = false, length = 20)
