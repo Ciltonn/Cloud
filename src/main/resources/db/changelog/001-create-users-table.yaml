@@ -5,6 +5,7 @@ databaseChangeLog:
       changes:
         - createTable:
             tableName: users
+            ifNotExists: true
             columns:
               - column:
                   name: id
@@ -13,33 +14,18 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: username
-                  type: VARCHAR(50)
+                  name: email
+                  type: VARCHAR(20)
                   constraints:
                     nullable: false
                     unique: true
               - column:
-                  name: password
+                  name: hash_password
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
-                  name: email
-                  type: VARCHAR(100)
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
                   name: role
                   type: VARCHAR(20)
-                  defaultValue: USER
                   constraints:
                     nullable: false
-              - column:
-                  name: created_at
-                  type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
-              - column:
-                  name: updated_at
-                  type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
