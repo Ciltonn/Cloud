@@ -16,20 +16,20 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 30)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "path", nullable = false, length = 60)
+    @Column(name = "path", nullable = false, length = 512)
     private String path;
 
-    @Column(name = "size", nullable = false, length = 30)
+    @Column(name = "size", nullable = false)
     private Long size;
 
     @Column(name = "file_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private FileType fileType;
 
-    @Column(name = "user_id", nullable = false, length = 20)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
 }
