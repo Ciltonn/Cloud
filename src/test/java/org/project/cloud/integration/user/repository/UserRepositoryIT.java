@@ -1,47 +1,26 @@
 package org.project.cloud.integration.user.repository;
 
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
+import org.project.cloud.IntegrationTestBase;
 import org.project.cloud.user.model.RoleUser;
 import org.project.cloud.user.model.User;
 import org.project.cloud.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
-@Testcontainers
-class UserRepositoryIT {
-    @Container
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:17")
-            .withDatabaseName("testdb")
-            .withUsername("test")
-            .withPassword("test");
+@Transactional
+class UserRepositoryIT extends IntegrationTestBase {
+
     @Autowired
     private UserRepository userRepository;
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
-        registry.add("spring.liquibase.enabled", () -> "false");
-    }
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Test
     void saveUser() {
