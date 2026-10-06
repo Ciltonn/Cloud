@@ -32,7 +32,7 @@ public class FileService {
     public FileDtoResponse info(Long userId, String path) {
         validatePath(path);
         if (path.equals("/")) {
-            return new FileDtoResponse("/", "/", FileType.DIRECTORY);
+            return new FileDtoResponse("/", "", FileType.DIRECTORY);
         }
         String name = extractName(path);
         String parentPath = extractPath(path);
@@ -108,7 +108,7 @@ public class FileService {
         );
     }
 
-    public FileDtoResponse renameOrRemove(Long userId, String from, String to) {
+    public FileDtoResponse move(Long userId, String from, String to) {
         validatePath(from);
         validatePath(to);
         String fromObjectName = buildObjectName(userId, from);
